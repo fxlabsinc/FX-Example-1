@@ -30,7 +30,7 @@ jobs:
   - name: Dev
     environment: Dev
     tags:
-      - V2
+      - V1
     regions: FXLabs/US_WEST_1
     cron: '0 0 12 * * ?'
     issueTracker: 
