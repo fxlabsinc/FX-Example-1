@@ -1,0 +1,21 @@
+---
+parent: "api_v1_test-suites_search_keyword"
+name: "api_v1_test-suites_search_keyword_get_path_param__keyword"
+description: null
+type: "SUITE"
+endpoint: "/api/v1/test-suites/search/null"
+method: "GET"
+auth: "Default"
+headers:
+- "Accept: application/json"
+- "Content-Type: application/json"
+testCases: []
+assertions: []
+tags:
+- "V1"
+authors:
+- "FX Bot"
+category: null
+severity: null
+inactive: false
+policies: null

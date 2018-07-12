@@ -1,0 +1,29 @@
+---
+parent: "api_v1_jobs"
+name: "api_v1_jobs_get_path_param__MySQL_pageSize"
+description: null
+type: "SUITE"
+endpoint: "/api/v1/jobs?pageSize={{@MySQLSQLInjections}}"
+method: "GET"
+auth: "Default"
+headers:
+- "Accept: application/json"
+- "Content-Type: application/json"
+testCases: []
+assertions: []
+tags:
+- "V1"
+authors:
+- "FX Bot"
+category: null
+severity: null
+inactive: false
+policies:
+  initExec: "Request"
+  cleanupExec: "Request"
+  logger: "DEBUG"
+  timeoutSeconds: 300
+  repeatOnFailure: 0
+  repeat: 0
+  repeatModule: "@MySQLSQLInjections"
+  repeatDelay: 0
