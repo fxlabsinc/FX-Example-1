@@ -2,75 +2,103 @@
 
 databases:
   - name: MySQL
-    version: 5.0
+    version: 5.7
     description: test
     inactive: false
   
   - name: Oracle
-    version: 5.0
+    version: 12c
     description: test
     inactive: true
   
   - name: Postgres
-    version: 5.0
+    version: 10
     description: test
     inactive: true
   
   - name: SQLServer
-    version: 5.0
+    version: 2017
+    description: test
+    inactive: true
+    
+  - name: MongoDB
+    version: 4
     description: test
     inactive: true
     
 logForgingPatterns:
-  - "INFO:(a-z|A-Z|0-9|.|!|@|#|$|%|&)+"
-  - "DEBUG:(a-z|A-Z|0-9|.|!|@|#|$|%|&)+"
-  - "ERROR:"
-  
+#  - "INFO:(a-z|A-Z|0-9|.|!|@|#|$|%|&)+"
+#  - "DEBUG:(a-z|A-Z|0-9|.|!|@|#|$|%|&)+"
+#  - "ERROR:"
+
+
 testSuites:
-  - postfix: anonymous_invalid
+# - type: <Required, User can't introduce new values> Possible values are anonymous_invalid/auth_invalid/DDOS/XSS_Injection/sql_injection/log_forging/invalid_datatype/special_chars/empty_value/negative_number/create
+#   severity: <Optional, User can't introduce new values> Possible values are Critical/Major/Minor/Trivial [ Default = Major ]
+#   postfix:  <Optional, User defined string - will be appended to the name of the test-suite. [Default is the type given above]
+#   assertions: <Optional, User can provide multiple assertions> [ Default = "@StatusCode != 200" ]
+#     - "@StatusCode != 200"
+#     - "@Response.data.result == 'FAIL'" 
+#   inactive: <Optional, boolean value> true/false [ Default = false]
+
+  - type: anonymous_invalid
     assertions:
       - "@StatusCode != 200"
+    severity: Critical
       
-  - postfix: auth_invalid
+  - type: auth_invalid
     assertions:
       - "@StatusCode != 200"
+    severity: Critical
       
-  - postfix: DDOS
+  - type: DDOS
     assertions:
       - "@StatusCode != 200"
+    severity: Critical
+
+  - type: XSS_Injection
+    assertions:
+      - "@StatusCode != 200"
+    severity: Critical
       
-  - postfix: XSS_Injection
+  - type: sql_injection
     assertions:
       - "@StatusCode != 200"
+    severity: Critical
+
+  - type: log_forging
+    postfix: log_forging
+    assertions:
+      - "@StatusCode != 200"
+    severity: Critical
+
+  - type: invalid_datatype
+    assertions:
+      - "@StatusCode != 200"
+    severity: Major
+
+  - type: special_chars
+      - "@StatusCode != 200"
+    severity: Minor
+
+  - type: negative_number
+    assertions:
+      - "@StatusCode != 200"
+    severity: Minor
       
-  - postfix: sql_injection
+  - type: null_value
     assertions:
       - "@StatusCode != 200"
+    severity: Minor
 
-  - postfix: log_forging
+  - type: empty_value
     assertions:
       - "@StatusCode != 200"
+    severity: Minor
+    inactive: 
 
-  - postfix: invalid_datatype
-    assertions:
-      - "@StatusCode != 200"
-
-  - postfix: special_chars
-    assertions:
-      - "@StatusCode != 200"
-
-  - postfix: negative
-    assertions:
-      - "@StatusCode != 200"
-      
-  - postfix: null_value
-    assertions:
-      - "@StatusCode != 200"
-
-  - postfix: empty_value
-    assertions:
-      - "@StatusCode != 200"
-
-  - postfix: create
+  - type: create
     assertions:
       - "@StatusCode == 200"
+    severity: 
+    inactive: true
